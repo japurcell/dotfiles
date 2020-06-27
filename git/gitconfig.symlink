@@ -1,9 +1,25 @@
 # Local/private config goes in the include
 [include]
         path = ~/.gitconfig.local
-[hub]
-        protocol = https
 [alias]
+	bclean = "!f() { git checkout ${1-master} && git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs git branch -d; }; f"
+	bdone = "!f() { git checkout ${1-master} && git up && git bclean ${1-master}; }; f"
+	ec = config --global -e
+	up = !git pull --rebase --prune $@ && git submodule update --init --recursive
+	cm = !git add -A && git commit -m
+	post-release = "!f() {\
+		if [ -z ${1+x} ]; then \
+			echo 'version is required'; \
+		else \
+			git checkout master \
+			&& git merge release/${1} \
+			&& git push \
+			&& git tag v${1} \
+			&& git push --tags; \
+		fi \
+		}; f"
+        recent = "!f() { git log --pretty=oneline --since=${1-5}.days; }; f"
+        save = !git add -A && git commit -m 'SAVEPOINT'
         co = checkout
         promote = !$ZSH/bin/git-promote
         wtf     = !$ZSH/bin/git-wtf
@@ -16,7 +32,7 @@
         ui = true
 [core]
         excludesfile = ~/.gitignore
-        editor = vim
+        editor = code --wait
 [apply]
         whitespace = nowarn
 [mergetool]

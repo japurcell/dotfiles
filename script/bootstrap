@@ -49,7 +49,6 @@ setup_gitconfig () {
   fi
 }
 
-
 link_file () {
   local src=$1 dst=$2
 
@@ -71,26 +70,26 @@ link_file () {
 
       else
 
-        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
-        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
-        read -n 1 action
+          user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+          [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+          read -n 1 action
 
-        case "$action" in
-          o )
-            overwrite=true;;
-          O )
-            overwrite_all=true;;
-          b )
-            backup=true;;
-          B )
-            backup_all=true;;
-          s )
-            skip=true;;
-          S )
-            skip_all=true;;
-          * )
-            ;;
-        esac
+          case "$action" in
+            o )
+              overwrite=true;;
+            O )
+              overwrite_all=true;;
+            b )
+              backup=true;;
+            B )
+              backup_all=true;;
+            s )
+              skip=true;;
+            S )
+              skip_all=true;;
+            * )
+              ;;
+          esac
 
       fi
 
@@ -126,9 +125,9 @@ link_file () {
 }
 
 install_dotfiles () {
-  info 'installing dotfiles'
+  local overwrite_all=${1:-false} backup_all=false skip_all=false
 
-  local overwrite_all=false backup_all=false skip_all=false
+  info "installing dotfiles; overwrite_all=$overwrite_all"
 
   for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
   do
@@ -137,8 +136,45 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
-install_dotfiles
+__usage() {
+    echo "Usage: $(basename "${BASH_SOURCE[0]}") [options]
+Options:
+    --quiet|-q                        No prompts; overwrite any existing
+Description:
+    This script installs all dotfiles.
+"
+}
+
+do_prompt=true
+
+if [[ $# = 0 ]]; then
+    do_prompt=true
+else
+  while [[ $# -gt 0 ]]; do
+      opt="$(echo "${1/#--/-}" | awk '{print tolower($0)}')"
+      case "$opt" in
+          -quiet|-q)
+              do_prompt=false
+              ;;
+          *)
+              __usage
+              exit 1
+              ;;
+      esac
+      shift
+  done
+fi
+
+overwrite=false
+
+# allow skipping of prompts for things like docker builds
+if [ "$do_prompt" == true ]; then
+  setup_gitconfig
+else
+  overwrite=true
+fi
+
+install_dotfiles $overwrite
 
 # If we're on a Mac, let's install and setup homebrew.
 if [ "$(uname -s)" == "Darwin" ]

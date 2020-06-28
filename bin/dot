@@ -7,7 +7,7 @@
 
 set -e
 
-parentDirectory="$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd -P)"
+parentDirectory="$(cd "$( dirname "$BASH_SOURCE" )" && pwd -P)"
 dotfilesDirectory="$(cd "$( dirname "$parentDirectory" )" && pwd -P)"
 
 displayUsageAndExit() {
@@ -41,7 +41,7 @@ done
 export ZSH=$HOME/.dotfiles
 
 # macOS stuff
-if [ "$(uname -s)" == "Darwin" ]; then
+if [ "$(uname -s)" = "Darwin" ]; then
 
 	# Set macOS defaults
 	$ZSH/macos/set-defaults.sh

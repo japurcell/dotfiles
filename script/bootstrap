@@ -2,12 +2,26 @@
 #
 # bootstrap installs things.
 
+set -euo pipefail
+
 cd "$(dirname "$0")/.."
-DOTFILES_ROOT=$(pwd -P)
-
-set -e
-
 echo ''
+
+#
+# variables
+#
+
+RESET="\033[0m"
+RED="\033[0;31m"
+DOTFILES_ROOT=$(pwd -P)
+dry_run=false
+do_prompt=true
+overwrite=false
+merges=()
+
+#
+# functions
+#
 
 info () {
   printf "\r  [ \033[00;34m..\033[0m ] $1\n"
@@ -28,12 +42,12 @@ fail () {
 }
 
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.local.symlink ]
+  if ! [[ -f git/gitconfig.local.symlink ]]
   then
     info 'setup gitconfig'
 
     git_credential='cache'
-    if [ "$(uname -s)" = "Darwin" ]
+    if [[ "$(uname -s)" = "Darwin" ]]
     then
       git_credential='osxkeychain'
     fi
@@ -43,7 +57,15 @@ setup_gitconfig () {
     user ' - What is your github author email?'
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
+    if [[ "$dry_run" = "true" ]]; then
+      echo "git_credential=$git_credential
+      git_authorname=$git_authorname
+      git_authoremail=$git_authoremail"
+    else
+      sed -e "s/AUTHORNAME/$git_authorname/g" \
+        -e "s/AUTHOREMAIL/$git_authoremail/g" \
+        -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
+    fi
 
     success 'gitconfig'
   fi
@@ -99,15 +121,24 @@ link_file () {
     backup=${backup:-$backup_all}
     skip=${skip:-$skip_all}
 
+    local fname_extension=$(basename -- "$src")
+    local file_name="${fname_extension%.*}"
+    # merge dst into src if skip is null and merges
+    # contains a value matching src's filename
+    if [[ "$skip" = "false" ]] && (( ${#merges[@]} )) && [[ "${merges[@]}" =~ "$file_name" ]]; then
+      [[ "$dry_run" = "false" ]] && cat "$dst" >> "$src"
+      success "merged $dst into $src"
+    fi
+
     if [ "$overwrite" = "true" ]
     then
-      rm -rf "$dst"
+      [[ "$dry_run" = "false" ]] && rm -rf "$dst"
       success "removed $dst"
     fi
 
     if [ "$backup" = "true" ]
     then
-      mv "$dst" "${dst}.backup"
+      [[ "$dry_run" = "false" ]] && mv "$dst" "${dst}.backup"
       success "moved $dst to ${dst}.backup"
     fi
 
@@ -119,7 +150,7 @@ link_file () {
 
   if [ "$skip" != "true" ]  # "false" or empty
   then
-    ln -s "$1" "$2"
+    [[ "$dry_run" = "false" ]] && ln -s "$1" "$2"
     success "linked $1 to $2"
   fi
 }
@@ -136,16 +167,64 @@ install_dotfiles () {
   done
 }
 
+__error() {
+    echo -e "${RED}error: $*${RESET}" 1>&2
+}
+
 __usage() {
-    echo "Usage: $(basename "${BASH_SOURCE[0]}") [options]
+    echo "Usage: $(basename "$BASH_SOURCE") [options]
 Options:
+    --dry-run|-d                      Just print effects
+    --merge|-m                        Symlinks to merge into existing
     --quiet|-q                        No prompts; overwrite any existing
 Description:
     This script installs all dotfiles.
 "
 }
 
-do_prompt=true
+__doit() {
+  # allow skipping of prompts for things like docker builds
+  if [[ "$do_prompt" = "true" ]]; then
+    setup_gitconfig
+  else
+    overwrite=true
+  fi
+
+  install_dotfiles $overwrite
+
+  info "installing dependencies"
+  if ( [[ "$dry_run" = "true" ]] && source bin/dot -d || source bin/dot ) | while read -r data; do info "$data"; done
+  then
+    success "dependencies installed"
+  else
+    fail "error installing dependencies"
+  fi
+
+  echo ''
+  echo '  All installed!'
+}
+
+__printf_bool () {
+  [[ "${1:-false}" = "true" ]] && echo "true" || echo "false"
+}
+
+__dry_run() {
+  echo -e "overwrite=$(__printf_bool "$overwrite")
+do_prompt=$(__printf_bool "$do_prompt")"
+
+  if (( ${#merges[@]} )); then
+    local printout="merges="
+    for i in "${merges[@]}"; do
+      printout="$printout$i "
+    done
+
+    echo $printout
+  fi
+}
+
+#
+# main
+#
 
 if [[ $# = 0 ]]; then
     do_prompt=true
@@ -153,36 +232,25 @@ else
   while [[ $# -gt 0 ]]; do
       opt="$(echo "${1/#--/-}" | awk '{print tolower($0)}')"
       case "$opt" in
+          -dry-run|-d)
+            dry_run=true
+            ;;
+          -merge|-m)
+            shift
+            merge="${1:-}"
+            [[ -z "$merge" ]] && __error "Missing value for parameter --merge" && __usage
+            merges+=("$merge")
+            ;;
           -quiet|-q)
-              do_prompt=false
-              ;;
+            do_prompt=false
+            ;;
           *)
-              __usage
-              exit 1
-              ;;
+            __error "Invalid parameter $opt" && __usage
+            exit 1
+            ;;
       esac
       shift
   done
 fi
 
-overwrite=false
-
-# allow skipping of prompts for things like docker builds
-if [ "$do_prompt" = "true" ]; then
-  setup_gitconfig
-else
-  overwrite=true
-fi
-
-install_dotfiles $overwrite
-
-info "installing dependencies"
-if source bin/dot | while read -r data; do info "$data"; done
-then
-  success "dependencies installed"
-else
-  fail "error installing dependencies"
-fi
-
-echo ''
-echo '  All installed!'
+__doit

@@ -9,6 +9,7 @@ set -e
 
 parentDirectory="$(cd "$( dirname "$BASH_SOURCE" )" && pwd -P)"
 dotfilesDirectory="$(cd "$( dirname "$parentDirectory" )" && pwd -P)"
+dry_run=false
 
 displayUsageAndExit() {
 	echo "dot -- dotfiles management"
@@ -16,6 +17,7 @@ displayUsageAndExit() {
 	echo "Usage: dot [options]"
 	echo ""
 	echo "Options:"
+	echo "  -d, --dry-run Print what would have happened"
 	echo "  -e, --edit    Open dotfiles directory for editing"
 	echo "  -h, --help    Show this help message and exit"
 	exit
@@ -23,6 +25,9 @@ displayUsageAndExit() {
 
 while test $# -gt 0; do
 	case "$1" in
+		"-d"|"--dry-run")
+			dry_run=true
+			;;
 		"-h"|"--help")
 			displayUsageAndExit
 			;;
@@ -41,19 +46,18 @@ done
 export ZSH=$HOME/.dotfiles
 
 # macOS stuff
-if [ "$(uname -s)" = "Darwin" ]; then
+if [[ "$(uname -s)" = "Darwin" ]]; then
 
 	# Set macOS defaults
-	$ZSH/macos/set-defaults.sh
-
-	# Install homebrew
-	$ZSH/homebrew/install.sh 2>&1
+	[[ "$dry_run" = "true" ]] \
+		&& echo "would have called /macos/set-defaults.sh" \
+		|| $ZSH/macos/set-defaults.sh
 
 	# Upgrade homebrew
 	echo "› brew update"
-	brew update
+	[[ "$dry_run" = "true" ]] && echo "would have called brew update" || brew update
 fi
 
 # Install software
 echo "› $ZSH/script/install"
-$ZSH/script/install
+[[ "$dry_run" = "true" ]] && $ZSH/script/install -d || $ZSH/script/install

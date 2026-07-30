@@ -1,2 +1,2 @@
-cs:start='container system start'
-cs:stop='container system stop'
+alias cs:start='container system start'
+alias cs:stop='container system stop'

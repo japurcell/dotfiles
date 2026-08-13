@@ -1,0 +1,62 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.formatOnType": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+    "source.removeUnusedImports": "explicit"
+  },
+  "markdown.validate.enabled": true,
+  "terminal.integrated.enableVisualBell": true,
+  "terminal.integrated.bellDuration": 500,
+  "accessibility.signalOptions.volume": 100,
+  "accessibility.signals.terminalBell": {
+    "sound": "on"
+  },
+  "chat.agent.maxRequests": 100,
+  "chat.tools.terminal.autoApprove": {
+    "/.*/": true,
+    "eval": false,
+    "rm": false,
+    "rmdir": false,
+    "del": false,
+    "kill": false,
+    "chmod": false,
+    "chown": false,
+    "/^Remove-Item\\b/i": false,
+    "/^git\\s+(push|reset|revert|clean)\\b/": false
+  },
+  "chat.autopilot.enabled": true,
+  "chat.checkpoints.showFileChanges": true,
+  "chat.customAgentInSubagent.enabled": true,
+  "chat.editing.autoAcceptDelay": 2,
+  "chat.tips.enabled": true,
+  "chat.experimental.useSkillAdherencePrompt": true,
+  "chat.subagents.allowInvocationsFromSubagents": true,
+  "chat.useNestedAgentsMdFiles": true,
+  "chat.viewSessions.orientation": "stacked",
+  "github.copilot.chat.agentDebugLog.enabled": true,
+  "remote.autoForwardPortsSource": "hybrid",
+  "git.confirmSync": false,
+  "workbench.browser.enableChatTools": true,
+  "chat.agent.thinking.phrases": {
+    "mode": "append",
+    "phrases": []
+  },
+  "application.shellEnvironmentResolutionTimeout": 30,
+  "chat.agent.sandbox.fileSystem.linux": {
+    "denyRead": [],
+    "allowWrite": ["."],
+    "denyWrite": []
+  },
+  "chat.agent.sandbox.enabled": "on",
+  "git.enableSmartCommit": true,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": true,
+    "scminput": false
+  }
+}

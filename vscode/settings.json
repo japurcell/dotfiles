@@ -8,6 +8,15 @@
     "source.organizeImports": "explicit",
     "source.removeUnusedImports": "explicit"
   },
+  "[csharp]": {
+    "editor.defaultFormatter": "ms-dotnettools.csharp"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+  },
+  "[skill]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
   "markdown.validate.enabled": true,
   "terminal.integrated.enableVisualBell": true,
   "terminal.integrated.bellDuration": 500,
@@ -39,24 +48,27 @@
   "chat.viewSessions.orientation": "stacked",
   "github.copilot.chat.agentDebugLog.enabled": true,
   "remote.autoForwardPortsSource": "hybrid",
-  "git.confirmSync": false,
   "workbench.browser.enableChatTools": true,
-  "chat.agent.thinking.phrases": {
-    "mode": "append",
-    "phrases": []
-  },
-  "application.shellEnvironmentResolutionTimeout": 30,
   "chat.agent.sandbox.fileSystem.linux": {
     "denyRead": [],
     "allowWrite": ["."],
     "denyWrite": []
   },
   "chat.agent.sandbox.enabled": "on",
-  "git.enableSmartCommit": true,
   "github.copilot.enable": {
     "*": true,
     "plaintext": false,
     "markdown": true,
     "scminput": false
-  }
+  },
+  "git.confirmSync": false,
+  "window.autoDetectColorScheme": true,
+  "window.newWindowDimensions": "inherit",
+  "chat.agent.thinking.phrases": {
+    "mode": "append",
+    "phrases": []
+  },
+  "application.shellEnvironmentResolutionTimeout": 30,
+  "git.enableSmartCommit": true,
+  "workbench.experimental.modernUI": true
 }

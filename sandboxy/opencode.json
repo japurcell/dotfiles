@@ -1,0 +1,12 @@
+{
+    "displayName": "Opencode",
+    "baseImage": "docker.io/library/ubuntu:24.04",
+    "installCommands": [
+        "apt-get update && apt-get install -y --no-install-recommends build-essential ca-certificates curl git jq openssh-client pkg-config python3 unzip xz-utils zip && rm -rf /var/lib/apt/lists/*",
+        "curl -fsSL https://opencode.ai/install | bash",
+        "mv $HOME/.opencode/bin/opencode /usr/local/bin/"
+    ],
+    "launchCommand": ["opencode"],
+    "environmentVariables": [],
+    "mounts": []
+}

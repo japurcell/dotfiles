@@ -1,4 +1,5 @@
 alias sb:build='(cd ~/dev/apple-containers/examples/sandboxy && BUILD_CONFIGURATION=release make build)'
-alias sb:clean='(cd ~/dev/apple-containers/examples/sandboxy && .build/release/sandboxy cache clean --all)'
-alias sb:rei:oc='(cd ~/dev/apple-containers/examples/sandboxy && .build/release/sandboxy run --reinstall --no-network-filter --name opencode opencode)'
 alias sb:run='~/dev/apple-containers/examples/sandboxy/.build/release/sandboxy'
+alias sb:clean='sb:run cache clean --all'
+alias sb:oc='sb:run run --no-network-filter --name opencode opencode'
+alias sb:oc:ri='sb:run run --reinstall --no-network-filter --name opencode opencode'

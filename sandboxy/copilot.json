@@ -5,23 +5,23 @@
     "apt-get update && apt-get install -y --no-install-recommends build-essential ca-certificates curl git jq openssh-client pkg-config python3 unzip xz-utils zip && rm -rf /var/lib/apt/lists/*",
     "curl -fsSL https://gh.io/copilot-install | bash"
   ],
-  "launchCommand": ["copilot"],
+  "launchCommand": [
+    "copilot",
+    "--experimental",
+    "--yolo",
+    "--model",
+    "gpt-5.4-mini"
+  ],
   "environmentVariables": [],
   "mounts": [
     {
       "hostPath": "~/.agents",
-      "containerPath": "~/.agents",
+      "containerPath": "/root/.agents",
       "readOnly": true
     },
     {
-      "hostPath": "~/.copilot/agents",
-      "containerPath": "~/.copilot/agents",
-      "readOnly": true
-    },
-    {
-      "hostPath": "~/.copilot/hooks/scripts",
-      "containerPath": "~/.copilot/hooks/scripts",
-      "readOnly": true
+      "hostPath": "~/.copilot",
+      "containerPath": "/root/.copilot"
     }
   ]
 }

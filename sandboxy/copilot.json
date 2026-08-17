@@ -2,7 +2,7 @@
   "displayName": "Copilot",
   "baseImage": "docker.io/library/ubuntu:24.04",
   "installCommands": [
-    "apt-get update && apt-get install -y --no-install-recommends build-essential ca-certificates curl git jq openssh-client pkg-config python3 unzip xz-utils zip && rm -rf /var/lib/apt/lists/*",
+    "apt-get update && apt-get install -y --no-install-recommends build-essential ca-certificates curl dbus-x11 git gnome-keyring jq libsecret-1-0 libsecret-tools openssh-client pkg-config python3 unzip xz-utils zip && rm -rf /var/lib/apt/lists/*",
     "curl -fsSL https://gh.io/copilot-install | bash"
   ],
   "launchCommand": [

@@ -1,5 +1,7 @@
 alias sb:build='(cd ~/dev/apple-containers/examples/sandboxy && BUILD_CONFIGURATION=release make build)'
 alias sb:run='~/dev/apple-containers/examples/sandboxy/.build/release/sandboxy'
 alias sb:clean='sb:run cache clean --all'
+alias sb:cp='sb:run run --no-network-filter --name copilot copilot'
+alias sb:cp:ri='sb:run run --reinstall --no-network-filter --name copilot copilot'
 alias sb:oc='sb:run run --no-network-filter --name opencode opencode'
 alias sb:oc:ri='sb:run run --reinstall --no-network-filter --name opencode opencode'

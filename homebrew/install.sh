@@ -14,7 +14,11 @@ if [ "$(uname -s)" = "Darwin" ]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
-  brew install gh
+  if test ! $(which gh)
+  then
+    echo "  Installing GitHub CLI for you."
+    brew install gh
+  fi
 
 fi
 

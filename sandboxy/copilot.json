@@ -1,0 +1,27 @@
+{
+  "displayName": "Copilot",
+  "baseImage": "docker.io/library/ubuntu:24.04",
+  "installCommands": [
+    "apt-get update && apt-get install -y --no-install-recommends build-essential ca-certificates curl git jq openssh-client pkg-config python3 unzip xz-utils zip && rm -rf /var/lib/apt/lists/*",
+    "curl -fsSL https://gh.io/copilot-install | bash"
+  ],
+  "launchCommand": ["copilot"],
+  "environmentVariables": [],
+  "mounts": [
+    {
+      "hostPath": "~/.agents",
+      "containerPath": "~/.agents",
+      "readOnly": true
+    },
+    {
+      "hostPath": "~/.copilot/agents",
+      "containerPath": "~/.copilot/agents",
+      "readOnly": true
+    },
+    {
+      "hostPath": "~/.copilot/hooks/scripts",
+      "containerPath": "~/.copilot/hooks/scripts",
+      "readOnly": true
+    }
+  ]
+}

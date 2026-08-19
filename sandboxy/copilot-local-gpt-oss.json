@@ -5,14 +5,16 @@
     "apt-get update && apt-get install -y --no-install-recommends build-essential ca-certificates curl git jq openssh-client python3 && rm -rf /var/lib/apt/lists/*",
     "curl -fsSL https://gh.io/copilot-install | bash"
   ],
-  "launchCommand": [
-    "copilot",
-    "--experimental",
-    "--yolo",
-    "--model",
-    "gpt-5.4-mini"
+  "launchCommand": ["copilot", "--experimental", "--yolo"],
+  "environmentVariables": [
+    "COPILOT_PROVIDER_TYPE=openai",
+    "COPILOT_PROVIDER_BASE_URL=http://192.168.64.1:8080/v1",
+    "COPILOT_PROVIDER_API_KEY=dummy",
+    "COPILOT_PROVIDER_MAX_PROMPT_TOKENS=120000",
+    "COPILOT_PROVIDER_MAX_OUTPUT_TOKENS=8192",
+    "COPILOT_MODEL=mlx-community--gpt-oss-20b-MXFP4-Q8",
+    "COPILOT_OFFLINE=true"
   ],
-  "environmentVariables": [],
   "mounts": [
     {
       "hostPath": "~/.agents",

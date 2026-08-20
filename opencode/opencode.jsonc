@@ -15,18 +15,21 @@
             "output": 8192,
           },
         },
-        "Qwen3-Coder-30B-A3B-Instruct-4bit": {
-          "name": "Qwen3-Coder-30B-A3B-Instruct-4bit",
+        "gemma-4-26B-A4B-it-MLX-8bit": {
+          "name": "gemma-4-26B-A4B-it-MLX-8bit",
           "limit": {
-            "context": 128000,
-            "output": 65536,
+            "context": 120000,
+            "output": 8192,
           },
         },
-        "Qwen3.6-35B-A3B-8bit": {
-          "name": "Qwen3.6-35B-A3B-8bit",
+        "Qwen3.8-27B-8bit": {
+          "name": "Qwen3.8 27B 8-bit",
           "limit": {
-            "context": 262144,
-            "output": 32768,
+            "context": 120000,
+            "output": 8192,
+          },
+          "options": {
+            "concurrency": 2,
           },
         },
       },

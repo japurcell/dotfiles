@@ -1,0 +1,21 @@
+{
+  "footer": {
+    "showModelEffort": true,
+    "showDirectory": true,
+    "showBranch": true,
+    "showContextWindow": true,
+    "showQuota": true,
+    "showAiUsed": true,
+    "showAgent": true,
+    "showCodeChanges": false,
+    "showUsername": false,
+    "showSandbox": true,
+    "showYolo": true,
+    "showCiStatus": false,
+    "showSchedules": false,
+    "showPullRequest": true,
+    "showCustom": true
+  },
+  "experimental": true,
+  "memory": false
+}

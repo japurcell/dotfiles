@@ -5,9 +5,16 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "omlx (local)",
       "options": {
-        "baseURL": "http://192.168.64.1:8080/v1",
+        "baseURL": "http://192.168.65.1:8080/v1",
       },
       "models": {
+        "gpt-oss-120b-MXFP4-Q8": {
+          "name": "gpt-oss-120b-MXFP4-Q8",
+          "limit": {
+            "context": 120000,
+            "output": 8192,
+          },
+        },
         "mlx-community--gpt-oss-20b-MXFP4-Q8": {
           "name": "mlx-community--gpt-oss-20b-MXFP4-Q8",
           "limit": {
@@ -20,6 +27,30 @@
           "limit": {
             "context": 120000,
             "output": 8192,
+          },
+        },
+        "Qwen3.8-27B-MTPLX-Optimized-Quality": {
+          "name": "Qwen3.8-27B-MTPLX-Optimized-Quality",
+          "limit": {
+            "context": 131072,
+            "output": 32768,
+          },
+          "variants": {
+            "xhigh": {
+              "reasoningEffort": "xhigh",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto",
+            },
+            "medium": {
+              "reasoningEffort": "medium",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto",
+            },
+            "low": {
+              "reasoningEffort": "low",
+              "textVerbosity": "low",
+              "reasoningSummary": "auto",
+            },
           },
         },
         "Qwen3.8-27B-8bit": {

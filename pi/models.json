@@ -1,0 +1,91 @@
+{
+  "providers": {
+    "mlx-local": {
+      "baseUrl": "http://192.168.64.1:8080/v1",
+      "api": "openai-completions",
+      "apiKey": "not-required",
+      "models": [
+        {
+          "id": "gemma-4-26B-A4B-it-MLX-8bit",
+          "name": "gemma-4-26B-A4B-it-MLX-8bit",
+          "input": ["text", "image"],
+          "reasoning": true
+        },
+        {
+          "id": "gpt-oss-120b-MXFP4-Q8",
+          "name": "gpt-oss-120b-MXFP4-Q8",
+          "input": ["text"],
+          "reasoning": true,
+          "contextWindow": 128000,
+          "maxTokens": 32000,
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": null,
+            "max": null
+          }
+        },
+        {
+          "id": "mlx-community--gpt-oss-20b-MXFP4-Q8",
+          "name": "mlx-community--gpt-oss-20b-MXFP4-Q8",
+          "input": ["text"],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": null,
+            "max": null
+          }
+        },
+        {
+          "id": "Qwen3.8-27B-MTPLX-Optimized-Quality",
+          "name": "Qwen3.8-27B-MTPLX-Optimized-Quality",
+          "input": ["text", "image"],
+          "reasoning": true,
+          "contextWindow": 131072,
+          "maxTokens": 32768,
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          }
+        },
+        {
+          "id": "Qwen3.8-27B-4bit",
+          "name": "Qwen3.8-27B-4bit",
+          "input": ["text", "image"],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          }
+        },
+        {
+          "id": "Qwen3.8-27B-8bit",
+          "name": "Qwen3.8-27B-8bit",
+          "input": ["text", "image"],
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": null,
+            "xhigh": "xhigh",
+            "max": null
+          }
+        }
+      ]
+    }
+  }
+}

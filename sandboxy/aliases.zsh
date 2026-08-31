@@ -21,6 +21,8 @@ awake() {
 alias sb:build='(cd ~/dev/apple-containers/examples/sandboxy && BUILD_CONFIGURATION=release make build)'
 alias sb:run='~/dev/apple-containers/examples/sandboxy/.build/release/sandboxy'
 alias sb:clean='sb:run cache clean --all'
+alias sb:cx='awake sb:run run --no-network-filter --name codex codex'
+alias sb:cx:ri='awake sb:run run --reinstall --no-network-filter --name codex codex'
 alias sb:cp='awake sb:run run --no-network-filter --name copilot copilot'
 alias sb:cp:ri='awake sb:run run --reinstall --no-network-filter --name copilot copilot'
 alias sb:cp:local-gpt-oss='awake sb:run run --no-network-filter --name copilot-local-gpt-oss copilot-local-gpt-oss'

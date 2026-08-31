@@ -1,6 +1,9 @@
 {
-  "lastChangelogVersion": "0.84.3",
+  "lastChangelogVersion": "0.84.4",
   "theme": "dark",
-  "packages": ["npm:pi-subagents", "npm:pi-web-search"],
+  "packages": [
+    "npm:pi-subagents",
+    "npm:pi-web-search"
+  ],
   "defaultThinkingLevel": "medium"
 }

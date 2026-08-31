@@ -1,0 +1,6 @@
+[projects."/Users/adam/dev/skills"]
+trust_level = "trusted"
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir", "approval-mode", "context-used", "five-hour-limit"]
+status_line_use_colors = true

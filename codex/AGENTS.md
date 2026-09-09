@@ -1,3 +1,7 @@
+# Codex Instructions
+
+## Universal Rules
+
 ### Simplicity and scope
 
 - Make the smallest clear, maintainable change that meets the request, including necessary tests and documentation. Avoid speculative abstractions and unrequested capabilities.

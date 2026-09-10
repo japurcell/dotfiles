@@ -20,6 +20,12 @@ if [ "$(uname -s)" = "Darwin" ]; then
     brew install gh
   fi
 
+  if test ! $(which rtk)
+  then
+    echo "  Installing rtk for you."
+    brew install rtk-ai/tap/rtk
+  fi
+
 fi
 
 exit 0

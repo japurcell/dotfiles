@@ -26,6 +26,15 @@ if [ "$(uname -s)" = "Darwin" ]; then
     brew install rtk-ai/tap/rtk
   fi
 
+  if test ! $(which codex)
+  then
+    echo "  Installing codex for you."
+    brew install --cask codex
+  else
+    echo "  Upgrading Codex for you."
+    brew upgrade --cask codex
+  fi
+
 fi
 
 exit 0

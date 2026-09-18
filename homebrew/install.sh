@@ -35,6 +35,12 @@ if [ "$(uname -s)" = "Darwin" ]; then
     brew upgrade --cask codex
   fi
 
+  if test ! $(which ripgrep)
+  then
+    echo "  Installing ripgrep for you."
+    brew install ripgrep
+  fi
+
 fi
 
 exit 0

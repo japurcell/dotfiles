@@ -18,12 +18,18 @@ if [ "$(uname -s)" = "Darwin" ]; then
   then
     echo "  Installing GitHub CLI for you."
     brew install gh
+  else
+    echo "  Upgrading GitHub CLI for you."
+    brew upgrade gh
   fi
 
   if test ! $(which rtk)
   then
     echo "  Installing rtk for you."
     brew install rtk-ai/tap/rtk
+  else
+    echo "  Upgrading rtk for you."
+    brew upgrade rtk-ai/tap/rtk
   fi
 
   if test ! $(which codex)
@@ -39,6 +45,9 @@ if [ "$(uname -s)" = "Darwin" ]; then
   then
     echo "  Installing ripgrep for you."
     brew install ripgrep
+  else
+    echo "  Upgrading ripgrep for you."
+    brew upgrade ripgrep
   fi
 
 fi

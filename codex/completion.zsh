@@ -1,0 +1,1 @@
+eval "$(codex completion zsh)"

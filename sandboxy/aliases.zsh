@@ -18,6 +18,7 @@ awake() {
   fi
 }
 
+alias omlx:serve='(cd ~/dev/omlx && awake omlx serve)'
 alias sb:build='(cd ~/dev/apple-containers/examples/sandboxy && BUILD_CONFIGURATION=release make build)'
 alias sb:run='~/dev/apple-containers/examples/sandboxy/.build/release/sandboxy'
 alias sb:clean='sb:run cache clean --all'

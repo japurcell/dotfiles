@@ -5,7 +5,7 @@
       "npm": "@ai-sdk/openai-compatible",
       "name": "omlx (local)",
       "options": {
-        "baseURL": "http://192.168.64.1:8080/v1",
+        "baseURL": "http://192.168.65.1:8080/v1",
       },
       "models": {
         "gpt-oss-120b-MXFP4-Q8": {

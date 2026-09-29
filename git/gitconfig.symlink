@@ -34,7 +34,7 @@
         ui = true
 [core]
         excludesfile = ~/.gitignore
-        editor = code --wait
+        editor = vscode --wait
 [apply]
         whitespace = nowarn
 [mergetool]

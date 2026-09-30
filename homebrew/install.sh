@@ -14,6 +14,15 @@ if [ "$(uname -s)" = "Darwin" ]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   fi
 
+  if test ! $(which flock)
+  then
+    echo "  Installing flock for you."
+    brew install flock
+  else
+    echo "  Upgrading flock for you."
+    brew upgrade flock
+  fi
+
   if test ! $(which gh)
   then
     echo "  Installing GitHub CLI for you."

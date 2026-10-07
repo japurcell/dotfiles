@@ -50,6 +50,15 @@ if [ "$(uname -s)" = "Darwin" ]; then
     brew upgrade --cask codex
   fi
 
+  if test ! $(which copilot)
+  then
+    echo "  Installing GitHub Copilot for you."
+    brew install copilot-cli
+  else
+    echo "  Upgrading GitHub Copilot for you."
+    brew upgrade copilot-cli
+  fi
+
   if test ! $(which ripgrep)
   then
     echo "  Installing ripgrep for you."
